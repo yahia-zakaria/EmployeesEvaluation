@@ -1,5 +1,5 @@
-Create proc GetEvaluationReport
-as
+CREATE proc [dbo].[GetEvaluationReport]
+as 
 begin
 select u.Id, FullName, IdentityNo, Grade, EvaluatedAt
 from Evaluations e JOIN AspNetUsers u

@@ -1,8 +1,8 @@
-Create proc GetDashboard_Employees
-as
+Create proc [dbo].[GetDashboard_Employees]
+as 
 begin
 Select count(*) as AllEmployees, 
 (select count(*) from AspNetUsers where IsEvaluated = 1) as EvaluatedEmployees, 
 (select count(*) from AspNetUsers where IsEvaluated = 0) as NotEvaluatedEmployees
-from AspNetUsers;
-end;
+from AspNetUsers
+end

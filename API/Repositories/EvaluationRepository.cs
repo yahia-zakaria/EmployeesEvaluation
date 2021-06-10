@@ -19,18 +19,6 @@ namespace API.Repositories
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IDapper _dapper;
-        private string get_dashboard_grades = @"select ""Grade"", floor((COUNT(""Grade"")/ :cnt)*100) as Rate from public.""Evaluations""  group by ""Grade""";
-        private string getEvaluationReport = @"select u.""Id"", ""FullName"", ""IdentityNo"", ""Grade"", ""EvaluatedAt""
-from public.""Evaluations""  e JOIN public.""AspNetUsers"" u
-on e.""EmployeeId"" = u.""Id""
-order by case
-when ""Grade""  like N'%ممتاز%' then 1
-when ""Grade""  like N'%جيد جدا%' then 2
-when ""Grade"" like N'%جيد%' then 3
-when ""Grade"" like N'%مرضي%' then 4 
-when ""Grade"" like N'%غير مرضي%' then 5
-end
-";
 
 
         public EvaluationRepository(DataContext context, IMapper mapper,
@@ -107,7 +95,7 @@ end
         public async Task<EvaluationReportDto> GetEvaluationReport()
         {
             // var repo = await Task.FromResult(_dapper.GetAll<EvaluationReport>("call getevaluationreport()", null, commandType: System.Data.CommandType.StoredProcedure));
-            var repo = await _context.EvaluationReport.FromSqlRaw(getEvaluationReport).ToListAsync();
+            var repo = await _context.EvaluationReport.FromSqlRaw("exec [dbo].[GetEvaluationReport]").ToListAsync();
             return new EvaluationReportDto
             {
                 Draw = 0,
@@ -122,17 +110,16 @@ end
         public async Task<DashboardDto> GetDashboard()
         {
           
-            var gradeStatistics = await _context.GradeStatisticDto.FromSqlRaw(get_dashboard_grades, new NpgsqlParameter("cnt", Convert.ToDouble(await _context.Users.CountAsync()))).ToListAsync();
-            var all = await _context.Users.CountAsync();
-            var evaluated = await _context.Users.Where(u=>u.IsEvaluated).CountAsync();
-            var Notevaluated=await _context.Users.Where(u=>!u.IsEvaluated).CountAsync();
+            var gradeStatistics = await _context.GradeStatisticDto.FromSqlRaw("exec [dbo].[GetDashboard_Grades]").ToListAsync();
+            var employeesStatisticAll = await _context.EmployeesStatisticDto.FromSqlRaw("exec [dbo].[GetDashboard_Employees]").ToListAsync();
+            var employeesStatistic = employeesStatisticAll.FirstOrDefault();
             return new DashboardDto
             {
-                AllEmployees = all,
-                EvaluatedEmployees = evaluated,
-                NotEvaluatedEmployees = Notevaluated,
-                EvaluatedEmployeesRate = Math.Floor(Convert.ToDecimal(evaluated / Convert.ToDecimal(all))*100),
-                NotEvaluatedEmployeesRate = Math.Floor(Convert.ToDecimal((Notevaluated) / Convert.ToDecimal(all))*100),
+                AllEmployees = employeesStatistic.AllEmployees,
+                EvaluatedEmployees = employeesStatistic.EvaluatedEmployees,
+                NotEvaluatedEmployees = employeesStatistic.NotEvaluatedEmployees,
+                EvaluatedEmployeesRate = Math.Floor(Convert.ToDecimal(employeesStatistic.EvaluatedEmployees / Convert.ToDecimal(employeesStatistic.AllEmployees))*100),
+                NotEvaluatedEmployeesRate = Math.Floor(Convert.ToDecimal((employeesStatistic.NotEvaluatedEmployees) / Convert.ToDecimal(employeesStatistic.AllEmployees))*100),
                 GradeStatistics = gradeStatistics
             };
         }

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-        [Authorize(Policy = "AllLevels")]
+    [Authorize(Policy = "AllLevels")]
     public class EvaluationsController : ApiBaseController
     {
         private readonly IUnitOfWork uow;
@@ -46,7 +46,7 @@ namespace API.Controllers
         {
             return Ok(await uow.EvaluationRepository.GetEmployee(id));
         }
-[Authorize(Policy = "AllLevels")]
+        [Authorize(Policy = "AllLevels")]
         [HttpGet("employee-evaluation/{id}")]
         public async Task<ActionResult<Evaluation>> GetEmployeeEvaluation(string id)
         {
