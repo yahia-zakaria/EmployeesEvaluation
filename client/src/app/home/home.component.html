@@ -1,0 +1,75 @@
+<!-- <div class="container mt-5 text-center">
+    <h3 class="mb-5">لوحة التحكم - الموقع الإلكتروني</h3>
+    <p class="lead">يمكنك التحكم في كافة صفحات الموقع الالكتروني من إضافة محتوى
+        أو تعديل أو حذف كما يمكنك أيضا رفع الأخبار و الإطلاع على جميع عناصر الموقع</p>
+</div>
+ -->
+
+ <div id="DashboardDIV" *appHasRole='["Admin"]'>
+<div class="container mt-5">
+  <div class="col-xl-12">
+    <h3 style="text-align: center" data-npvmdict="my_generalviolations">إحصائيات التقييم</h3>
+</div>
+<div class="row col-12 text-center mt-5">
+
+  <div *ngFor="let item of dashboard?.gradeStatistics" class="col-md-3">
+    <circle-progress
+    [percent]="item.rate"
+    [radius]="100"
+    [title]="item.rate"
+    [outerStrokeColor]="setProgressColor(item.grade)"
+  ></circle-progress>
+  <br>
+  <strong>{{item.grade}}</strong>
+  </div>
+</div>
+</div>
+
+  <div class="container mt-5">
+      <div class="row">
+          <div class="col-xl-12">
+              <h3 style="text-align: center" data-npvmdict="my_generalviolations">إحصائيات الموظفين</h3>
+          </div>
+      </div>
+      <div class="row mt-3">
+          <div class="col-lg-4 col-md-6">
+              <div class="whitebox bluebox ">
+                  <div style="text-align: center" class="topCardsTitle" data-npvmdict="accumulation">العدد الكلي الموظفين </div>
+                  <div class="row pad-5 text-center mt-2">
+                      <div class="title2 topCardValue " id="accumulationCount">{{dashboard?.allEmployees}}</div>
+                      <div class="title3 topCardText" data-npvmdict="violation">موظف</div>
+                  </div>
+                  <div class="row pad-5 text-center mt-2">
+                    <div class="title2 topCardValue " id="unpaidValue">%{{100}}</div>
+                </div>
+              </div>
+          </div>
+
+           <div class="col-lg-4 col-md-6">
+              <div class="whitebox greenbox ">
+                  <div style="text-align: center" class="topCardsTitle" data-npvmdict="paid">عدد الموظفين المقيمين</div>
+                  <div class="row pad-5 text-center mt-2">
+                      <div class="title2 topCardValue " id="paidCount">{{dashboard?.evaluatedEmployees}}</div>
+                      <div class="title3 topCardText" data-npvmdict="violation">موظف</div>
+                  </div>
+                  <div class="row pad-5 text-center mt-2">
+                      <div class="title2 topCardValue " id="paidValue">%{{dashboard?.evaluatedEmployeesRate}}</div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="whitebox redbox">
+                <div style="text-align: center" class="topCardsTitle" data-npvmdict="unpaid">عدد الموظفين غير المقيمين</div>
+                <div class="row pad-5 text-center mt-2">
+                    <div class="title2 topCardValue " id="unpaidCount">{{dashboard?.notEvaluatedEmployees}}</div>
+                    <div class="title3 topCardText" data-npvmdict="violation">موظف</div>
+                </div>
+                <div class="row pad-5 text-center mt-2">
+                    <div class="title2 topCardValue " id="unpaidValue">%{{dashboard?.notEvaluatedEmployeesRate}}</div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

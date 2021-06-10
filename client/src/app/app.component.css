@@ -1,0 +1,10 @@
+.login-background{
+  background-image: url('../assets/images/login-bg.png') ;
+  background-size:cover  ;
+  background-repeat: no-repeat  ;
+  height: 100% ;
+  min-height: 100vh;
+}
+::ng-deep body{
+  background-color: lightgrey;
+}

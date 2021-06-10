@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">إضافة معيار تقييم</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form
+    [formGroup]="addForm"
+    (ngSubmit)="addForm.valid && addCriterion()"
+    autocomplete="off"
+  >
+    <app-text-input
+      [formControl]="addForm.controls['name']"
+      [label]="'إسم المعيار'"
+    ></app-text-input>
+
+<div class="form-group">
+  <textarea
+  [class.is-invalid]="addForm.get('description').errors && addForm.get('description').touched"
+    formControlName="description"
+    name="description"
+    placeholder="'وصف المعيار التقييمي'"
+    class="form-control"
+    rows="4"
+  ></textarea>
+  <div class="invalid-feedback">الوصف مطلوب</div>
+</div>
+
+    <app-text-input
+      [formControl]="addForm.controls['fullScore']"
+      [label]="'التقييم الكامل'"
+    ></app-text-input>
+
+    <div class="row" *ngIf="validationErrors.length > 0">
+      <ul class="text-danger">
+        <li *ngFor="let error of validationErrors">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">إلغاء</button>
+  <button type="submit" [disabled]="!addForm.valid" class="btn btn-primary" (click)="addCriterion()">حفظ</button>
+</div>

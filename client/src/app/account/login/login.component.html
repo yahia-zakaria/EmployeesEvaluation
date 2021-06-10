@@ -1,0 +1,41 @@
+
+  <div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex justify-content-end social_icon">
+          <img src="../../../assets/images/logo-1.png" />
+        </div>
+        <div class="mt-5" style="clear: both"></div>
+        <div class="text-center mt-5">
+          <br />
+          <h3>وزارة الدفاع</h3>
+          <h3>نظام التقييم الوظيفي</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <form  #loginForm="ngForm" (ngSubmit)="login()">
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
+            </div>
+            <input [(ngModel)]="model.userName" name="username" type="text" class="form-control" placeholder="إسم المستخدم" />
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-key"></i></span>
+            </div>
+            <input [(ngModel)]="model.password" name="password" type="password" class="form-control" placeholder="password"/>
+          </div>
+          <div class="form-group text-center mt-5">
+            <input type="submit" value="تسجيل دخول" class="btn login_btn" />
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-light">
+        <h5 class="text-bold text-center">معا نجتهد لرفعة هذا الوطن</h5>
+        <p class="text-center">وزارة الدفاع © {{ 2021 }}</p>
+      </div>
+    </div>
+  </div>
+</div>

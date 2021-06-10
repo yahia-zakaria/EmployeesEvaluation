@@ -1,0 +1,121 @@
+<div class="container row mt-5 mb-5">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body row">
+        <div class="col-md-3">
+          <img src="../../../assets/images/logo-1.png" alt="logo" style="width: 100px; height: 100;">
+        </div>
+        <div class="col-md-6 text-center">
+          <h3>وزارة الدفاع</h3>
+          <h3>الإدارة العامة للموارد البشرية</h3>
+          <h4>التقييم الوظيفي</h4>
+        </div>
+        <div class="col-md-3 ">
+          <img class="float-left" src="../../../assets/download.svg" alt="2030" style="width: 150px; height: 150;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="employee" class="col-md-12">
+    <div class="card">
+      <div class="card-header">معلومات الموظف الأساسية</div>
+      <div class="card-body row">
+        <div class="col-md-5">
+          <strong>رقم الهوية</strong>
+          <p class="d-inline mr-3">{{ employee.identityNo }}</p>
+        </div>
+        <div class="col-md-5">
+          <strong>إسم الموظف</strong>
+          <p class="d-inline mr-3">{{ employee.fullName }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">معلومات التقييم</div>
+      <div class="card-body row">
+        <div class="col-md-5">
+          <strong>حالة التقييم</strong>
+          <p class="d-inline mr-3">
+            {{ employee.isEvaluated ? "تم التقييم" : "لم  يتم التقييم" }}
+          </p>
+        </div>
+        <div class="col-md-5">
+          <strong> تاريخ أخر تقييم</strong>
+          <p class="d-inline mr-3">
+            {{ employee.lastEvauationDate | date: "dd/MM/yyyy" }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">معايير التقييم الوظيفي</div>
+      <div class="card-body">
+        <form #evaluationForm="ngForm" id="evaluationForm">
+          <div
+            class="row mt-2"
+            *ngFor="let item of criteria$ | async; let i = index"
+          >
+            <div class="col-md-4">
+              <strong>{{ item.name }}</strong>
+            </div>
+            <div class="form-group col-md-4">
+              <select
+                class="form-control"
+                name="score{{ i }}"
+                [(ngModel)]="evaluationScore[i]"
+                #name="ngModel"
+                [class.is-invalid]="name.errors && name.dirty && name.touched"
+                required
+                disabled
+              >
+                <option value="{{ evaluationScore[i] }}">
+                  {{ evaluationScore[i] }}
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <div
+                class="text-danger"
+                *ngIf="name.errors?.required && name.dirty"
+              >
+                التقييم الكامل مطلوب
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3 mb-3">
+            <div class="col-md-4">
+              <strong>التقييم النهائي:</strong>
+            </div>
+            <div class="col-md-4">
+              <strong style="padding: 10px !important">{{
+                onScoreChange()
+              }}</strong>
+            </div>
+          </div>
+          <div class="form-group mt-5">
+            <a  href="/evaluation/show-evaluation/{{employee.id}}" class="btn btn-danger d-print-none">رجوع</a>
+            <button
+              type="button"
+              class="btn btn-primary d-print-none"
+              (click)="print()"
+            >
+              <i class="fa fa-print"></i> طباعة التقييم
+            </button>
+          </div>
+          <div class="text-center mt-10 mb-5">
+            <ngx-barcode [bc-value]=employee.id [bc-display-value]="false" [bc-width]=1></ngx-barcode>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<br />
+<br />
+<br />

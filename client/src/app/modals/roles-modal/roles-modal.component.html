@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">إدارة صلاحيات المستخدم {{user.fullName}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #rolesForm="ngForm">
+        <div class="form-check" *ngFor="let role of roles">
+            <input type="checkbox"
+             class="form-check-input"
+             [checked]="role.checked"
+             value="role.name"
+             (change)="role.checked=!role.checked"
+             [disabled]="role.name==='AdminLevel' && user.userName==='admin@amana-md.gov.sa'"
+             >
+             <label>{{role.value}}</label>
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">إلغاء</button>
+    <button type="submit" class="btn btn-success" (click)="updateRole()">إرسال</button>
+  </div>

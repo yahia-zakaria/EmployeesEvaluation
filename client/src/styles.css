@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "DroidArabicKufi";
+    src: local("DroidArabicKufi"),
+     url(./assets/fonts/DroidArabicKufi.woff) format("woff"),
+    url(./assets/fonts/DroidArabicKufi.ttf) format('truetype'),
+    url('./assets/fonts/DroidArabicKufi.svg') format('svg')
+  }
+
+  body{
+      font-family: 'DroidArabicKufi' !important;
+  }
+
+  .dataTables_empty {
+    display: none;
+  }

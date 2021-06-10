@@ -1,0 +1,16 @@
+<ngx-spinner>
+  <!-- <p style="font-size: 20px; color: white">Loading...</p> -->
+  <h3>جاري التحميل...</h3>
+</ngx-spinner>
+<ng-container *ngIf="!(accountService.currentUser$ | async)">
+  <div class="login-background">
+    <app-login></app-login>
+  </div>
+</ng-container>
+<ng-container *ngIf="accountService.currentUser$ | async">
+  <app-nav></app-nav>
+  <div class="container body-content">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</ng-container>

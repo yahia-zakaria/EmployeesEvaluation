@@ -1,0 +1,89 @@
+<div id="divToPrint" class="row mt-5 mb-5">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">معلومات الموظف الأساسية</div>
+      <div class="card-body">
+        <strong>رقم الهوية</strong>
+        <p>{{ employee.identityNo || "" }}</p>
+        <strong>إسم الموظف</strong>
+        <p>{{ employee.fullName || "" }}</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">معلومات التقييم</div>
+      <div class="card-body">
+        <strong>حالة التقييم</strong>
+        <p>{{ employee.isEvaluated? "تم التقييم" : "لم  يتم التقييم" }}</p>
+
+        <strong> تاريخ أخر تقييم</strong>
+        <p>{{ employee.lastEvauationDate | date : 'dd/MM/yyyy' }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">معايير التقييم الوظيفي</div>
+      <div class="card-body">
+        <form #evaluationForm="ngForm" id="evaluationForm" (ngSubmit)="evaluateEmployee()">
+        <div
+          class="row mt-2"
+          *ngFor="let item of criteria$ | async; let i = index"
+        >
+          <div class="col-md-4">
+            <strong>{{ item.name }}</strong>
+          </div>
+          <div class="form-group col-md-4">
+            <select
+              class="form-control"
+              name="score{{ i }}"
+              [(ngModel)]="evaluationScore[i]"
+              #name="ngModel"
+              [class.is-invalid]='name.errors && name.dirty && name.touched'
+              required
+            >
+              <option value="{{ evaluationScore[i] }}">
+                {{ evaluationScore[i] }}
+              </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <div class="text-danger" *ngIf='name.errors?.required && name.dirty'>التقييم الكامل مطلوب</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="mb-2">
+              <progressbar
+                [value]="evaluationScore[i] * 20 || 0"
+                type={{setProgressType(evaluationScore[i])}}
+                [striped]="true"
+                >{{ evaluationScore[i] * 20 }}</progressbar
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3 mb-3">
+          <div class="col-md-4">
+            <strong>التقييم النهائي:</strong>
+          </div>
+          <div class="col-md-4">
+            <strong style="padding: 10px !important">{{onScoreChange()}}</strong>
+          </div>
+        </div>
+        <div class="form-group mt-5">
+          <a href="/evaluation" class="btn btn-danger">رجوع</a>
+          <button type="submit" class="btn btn-primary mr-2" [disabled]="evaluationForm.form.invalid">{{ employee.isEvaluated ? "إعادة تقييم" : "تقييم" }}</button>
+          <a href="/evaluation/print-evaluation/{{employee.id}}" [hidden]='!employee.isEvaluated' class="btn btn-dark mr-2"  printSectionId="divToPrint" ngxPrint>
+            <i class="fa fa-print"></i> طباعة التقييم
+          </a>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>

@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">تعديل معيار تقييم</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form
+  #updateForm="ngForm" id="updateForm"
+    (ngSubmit)="updateForm.valid && sendUpdatedCriterion()"
+    autocomplete="off"
+  >
+    <input type="hidden" [(ngModel)]="criterion.id" name="id">
+ <div class="form-group">
+  <input type="text" [class.is-invalid]='name.errors?.required && name.dirty && name.touched' [(ngModel)]="criterion.name" name="name" required
+  #name="ngModel" class="form-control" placeholder="إسم المعيار التقييمي">
+  <div class="text-danger" *ngIf="name.errors?.required">
+    إسم المعيار مطلوب
+  </div>
+ </div>
+    <div class="form-group">
+      <textarea
+      [class.is-invalid]='description.errors?.required && description.dirty && description.touched'
+      #description="ngModel"
+        name="description"
+        placeholder="وصف المعيار التقييمي"
+        rows="4"
+        class="form-control"
+        [(ngModel)]="criterion.description"
+        required
+      ></textarea>
+      <div class="text-danger" *ngIf="description.errors?.required">الوصف مطلوب</div>
+    </div>
+   <div class="form-group">
+    <input type="number"
+    [class.is-invalid]='fullScore.errors?.required && fullScore.dirty && fullScore.touched'
+    #fullScore="ngModel"
+    [(ngModel)]="criterion.fullScore" name="fullScore"
+    required
+    class="form-control text-right mt-2" placeholder="التقييم الكامل">
+    <div class="text-danger" *ngIf="fullScore.errors?.required">التقييم الكامل مطلوب</div>
+   </div>
+
+    <div class="row" *ngIf="validationErrors.length > 0">
+      <ul class="text-danger">
+        <li *ngFor="let error of validationErrors">
+          {{ error }}
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">إلغاء</button>
+  <button type="submit" class="btn btn-primary" [disabled]="updateForm.form.invalid" (click)="sendUpdatedCriterion()">حفظ</button>
+</div>

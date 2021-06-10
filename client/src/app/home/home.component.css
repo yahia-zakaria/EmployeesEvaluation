@@ -1,0 +1,89 @@
+
+.whitebox {
+  background-color: white;
+  min-height: 150px;
+  border-top: 2px solid #259D6F;
+  /*  direction: rtl;*/
+  text-align: right;
+  padding: 23px 20px;
+  cursor: default;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+
+.whitebox img {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+
+
+.whitebox .title1 {
+  color: #4F5F6F;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.whitebox .title2 {
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 1;
+}
+
+.whitebox .title3 {
+  font-weight: 300;
+  font-size: 14px;
+  font-size: 15px;
+}
+
+.whitebox.redbox {
+  border-top-color: #B71C1C;
+}
+
+  .whitebox.redbox .title2, .whitebox.redbox .title3 {
+      color: #B71C1C;
+  }
+
+.whitebox.blackbox {
+  border-top-color: black;
+}
+
+  .whitebox.blackbox .title2, .whitebox.blackbox .title3 {
+      color: black;
+  }
+
+.whitebox.yellowbox {
+  border-top-color: #EEA62D;
+}
+
+  .whitebox.yellowbox .title2, .whitebox.yellowbox .title3 {
+      color: #EEA62D;
+  }
+
+.whitebox.greenbox {
+  border-top-color: #78BE21;
+}
+
+  .whitebox.greenbox .title2, .whitebox.greenbox .title3 {
+      color: #78BE21;
+  }
+
+.whitebox.bluebox {
+  border-top-color: #329A9B;
+}
+
+  .whitebox.bluebox .title2, .whitebox.bluebox .title3 {
+      color: #329A9B;
+  }
+
+
+  body {
+    background-color: #7E57C2
+}
+
+.mt-100 {
+    margin-top: 200px
+}

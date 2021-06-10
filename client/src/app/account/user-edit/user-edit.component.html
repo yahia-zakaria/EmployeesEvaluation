@@ -1,0 +1,45 @@
+<div *ngIf="user">
+    <div class="col-8">
+        <div class="alert alert-info" *ngIf="editForm.dirty">
+            <strong>تنبيه: </strong> اذا لم تقم بالضغط على حفظ ستفقد البيانات المدخلة
+        </div>
+    </div>
+    <div class="card mt-5">
+      <div class="card-header bg-dark">
+            <p class="d-inline">تعديل المستخدم </p>
+            <p class="text-primary d-inline">({{user.fullName}})</p>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+                <input class="form-control mt-2" type="text" placeholder="الاسم بالكامل" name="fullname"
+                    [(ngModel)]="user.fullName">
+                <input class="form-control mt-2" placeholder="رقم الجوال" type="text" name="phonenumber"
+                    [(ngModel)]="user.phoneNumber">
+            </form>
+            <div class="row" *ngIf="validationErrors.length > 0">
+              <ul class="text-danger">
+                <li *ngFor="let error of validationErrors">
+                  {{ error }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 text-center d-none d-sm-block">
+            <i class="fa fa-user" style="font-size:100px;color:gray"></i>
+          </div>
+        </div>
+        </div>
+        <div class="card-footer">
+            <div class="form-group">
+              <a href="/users" class="btn btn-danger">رجوع</a>
+                <button form="editForm" type="submit" [disabled]="!editForm.dirty" class="btn btn-primary mr-2">حفظ</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,9 @@
+Create proc GetDashboard_Grades
+as
+declare @cnt int
+begin
+select @cnt=count(*) from AspNetUsers;
+select Grade, floor((COUNT(Grade)/ @cnt)*100) as Rate
+from evaluations 
+group by grade;
+end

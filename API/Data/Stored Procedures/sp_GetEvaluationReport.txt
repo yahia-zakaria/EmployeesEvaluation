@@ -1,0 +1,14 @@
+Create proc GetEvaluationReport
+as
+begin
+select u.Id, FullName, IdentityNo, Grade, EvaluatedAt
+from Evaluations e JOIN AspNetUsers u
+on e.EmployeeId = u.id
+order by case
+when Grade  like N'%ممتاز%' then 1
+when Grade  like N'%جيد جدا%' then 2
+when Grade like N'%جيد%' then 3
+when Grade like N'%مرضي%' then 4 
+when Grade like N'%غير مرضي%' then 5
+end; 
+end

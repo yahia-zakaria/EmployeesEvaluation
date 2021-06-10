@@ -1,0 +1,22 @@
+<div class="form-group">
+    <input
+    [class.is-invalid]='ngControl.touched && ngControl.invalid'
+    [formControl]="ngControl.control" class="form-control" type="{{type}}" placeholder="{{label}}">
+    <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">من فضلك إدخل {{label}}</div>
+    <div *ngIf="ngControl.control.errors?.minlength" class="invalid-feedback">
+        طول الحقل {{label}} يجب ان يكون  {{ngControl.control.errors?.minlength['requiredLength']}} على الاقل
+    </div>
+    <div *ngIf="ngControl.control.errors?.maxlength" class="invalid-feedback">
+        طول الحقل {{label}} يجب أن يكون  {{ngControl.control.errors?.maxlength['requiredLength']}} كحد أقصى
+    </div>
+    <div *ngIf="ngControl.control.errors?.isMatching" class="invalid-feedback">
+        كلمتا السر غير متطابقتين
+    </div>
+    <div *ngIf="ngControl.control.errors?.pattern" class="invalid-feedback">
+      المدخل غير صحيح
+  </div>
+  <div *ngIf="ngControl.control.errors?.email" class="invalid-feedback">
+    البريد الإلكتروني غير صالح
+</div>
+
+</div>
